@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+
 public class Stock {
 	private String name;
 	private ArrayList<Price> price;
