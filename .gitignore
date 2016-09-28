@@ -1,0 +1,11 @@
+bin/algorithms/average/Average.class
+bin/algorithms/average/AverageAbstract.class
+bin/algorithms/average/ExponentialAverage.class
+bin/algorithms/average/MovingAverage.class
+bin/algorithms/rsi/RelativeStrengthIndex.class
+bin/algorithms/rsi/RelativeStrengthIndexAbstract.class
+bin/algorithms/rsi/Rsi.class
+bin/model/Price.class
+bin/model/Stock.class
+bin/test/AverageTests.class
+bin/test/RsiTest.class
