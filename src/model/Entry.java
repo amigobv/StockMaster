@@ -18,6 +18,10 @@ public class Entry {
 	private double rs;
 	private double rsi;
 	
+	public Entry() {
+		id = -1;
+	}
+	
 	public Entry(int id, Date date, double open, double high, double low, double close, double volume, double value) {
 		
 		this.id = id;
@@ -31,12 +35,14 @@ public class Entry {
 	}
 	
 	public Entry (Date date, double open, double close) {
+		id = -1;
 		this.date = date;
 		this.open = open;
 		this.close = close;
 	}
 	
 	public Entry (Date date, double close) {
+		id = -1;
 		this.date = date;
 		this.close = close;
 	}

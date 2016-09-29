@@ -1,6 +1,6 @@
 package algorithms.average;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import model.Entry;
@@ -23,7 +23,7 @@ public abstract class AverageAbstract implements Average {
 		}
 	}
 	
-	public Entry getEntryByDay(LocalDate date) {
+	public Entry getEntryByDay(Date date) {
 		for(Entry price : entries) {
 			if (price.getDate().equals(date))
 				return price;
@@ -32,7 +32,7 @@ public abstract class AverageAbstract implements Average {
 		return null;
 	}
 	
-	protected int getIndexByDate(LocalDate date) {
+	protected int getIndexByDate(Date date) {
 		Entry price = getEntryByDay(date);
 		return entries.indexOf(price);
 	}

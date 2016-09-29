@@ -1,6 +1,6 @@
 package algorithms.rsi;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import algorithms.average.Average;
 import model.Entry;
@@ -14,7 +14,7 @@ public class Rsi extends RelativeStrengthIndexAbstract {
 	}
 	
 	@Override
-	public double calculate(LocalDate date) {
+	public double calculate(Date date) {
 		Entry entry = avg.getEntryByDay(date);
 		
 		double gainAvg = avg.calculateGainAverage(date);

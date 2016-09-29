@@ -26,9 +26,8 @@ public class AverageTests {
 		Average algo = new MovingAverage(entries, PERIOD);
 
 		for (Entry entry : entries) {
-			LocalDate date = DateUtils.DateToLocalDate(entry.getDate());
-			entry.setGainAverage(algo.calculateGainAverage(date));
-			entry.setLossAverage(algo.calculateLossAverage(date));
+			entry.setGainAverage(algo.calculateGainAverage(entry.getDate()));
+			entry.setLossAverage(algo.calculateLossAverage(entry.getDate()));
 
 			System.out.println(String.format("%d\t%s\t%4.2f\t%4.2f\t%4.2f\t%4.2f\t%4.2f", count++,
 					entry.getDate().toString(), entry.getClose(), entry.getGain(), entry.getLoss(),
@@ -47,9 +46,8 @@ public class AverageTests {
 		Average algo = new ExponentialAverage(entries, PERIOD, smooth);
 
 		for (Entry entry : entries) {
-			LocalDate date = DateUtils.DateToLocalDate(entry.getDate());
-			entry.setGainAverage(algo.calculateGainAverage(date));
-			entry.setLossAverage(algo.calculateLossAverage(date));
+			entry.setGainAverage(algo.calculateGainAverage(entry.getDate()));
+			entry.setLossAverage(algo.calculateLossAverage(entry.getDate()));
 
 			System.out.println(String.format("%d\t%s\t%4.2f\t%4.2f\t%4.2f\t%4.2f\t%4.2f", count++,
 					entry.getDate().toString(), entry.getClose(), entry.getGain(), entry.getLoss(),

@@ -1,6 +1,6 @@
 package algorithms.average;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import model.Entry;
@@ -40,7 +40,7 @@ public class MovingAverage extends AverageAbstract {
     }
     
     @Override
-    public double calculateGainAverage(LocalDate date) {
+    public double calculateGainAverage(Date date) {
     	int dayIdx = getIndexByDate(date);
     	
     	if (dayIdx < period)
@@ -56,7 +56,7 @@ public class MovingAverage extends AverageAbstract {
 	}
 	
     @Override
-	public double calculateLossAverage(LocalDate date) {
+	public double calculateLossAverage(Date date) {
 		int dayIdx = getIndexByDate(date);
 		
 		if (dayIdx < period)

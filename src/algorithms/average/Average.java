@@ -1,11 +1,11 @@
 package algorithms.average;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import model.Entry;
 
 public interface Average {
-	public double calculateGainAverage(LocalDate date);
-	public double calculateLossAverage(LocalDate date);
-	public Entry getEntryByDay(LocalDate date);
+	public double calculateGainAverage(Date date);
+	public double calculateLossAverage(Date date);
+	public Entry getEntryByDay(Date date);
 }

@@ -1,7 +1,7 @@
 package algorithms.rsi;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public interface RelativeStrengthIndex {
-	public double calculate(LocalDate date);
+	public double calculate(Date date);
 }

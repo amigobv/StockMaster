@@ -11,6 +11,7 @@ public class Ticker {
 	private ArrayList<Entry> entries;
 	
 	public Ticker() {
+		id = -1;
 	}
 	
 	public int getId() {
