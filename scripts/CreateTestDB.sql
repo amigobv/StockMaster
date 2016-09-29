@@ -12,6 +12,14 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- Schema StockMasterDb
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `StockMasterDb` DEFAULT CHARACTER SET utf8 ;
+-- -----------------------------------------------------
+-- Schema StockMasteTestDb
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema StockMasteTestDb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `StockMasteTestDb` ;
 USE `StockMasterDb` ;
 
 -- -----------------------------------------------------
@@ -54,6 +62,50 @@ CREATE TABLE IF NOT EXISTS `StockMasterDb`.`Entry` (
     REFERENCES `StockMasterDb`.`Ticker` (`idTicker`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+USE `StockMasteTestDb` ;
+
+-- -----------------------------------------------------
+-- Table `StockMasteTestDb`.`Entry`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `StockMasteTestDb`.`Entry` ;
+
+CREATE TABLE IF NOT EXISTS `StockMasteTestDb`.`Entry` (
+  `idEntry` INT NOT NULL AUTO_INCREMENT,
+  `date` DATE NOT NULL,
+  `open` DOUBLE NULL,
+  `high` DOUBLE NULL,
+  `low` DOUBLE NULL,
+  `close` DOUBLE NULL,
+  `volume` DOUBLE NULL,
+  `value` DOUBLE NULL,
+  `rs` DOUBLE NULL,
+  `rsi` DOUBLE NULL,
+  `ticker` INT NULL,
+  PRIMARY KEY (`idEntry`),
+  UNIQUE INDEX `idEntry_UNIQUE` (`idEntry` ASC),
+  INDEX `tickerFK_idx` (`ticker` ASC),
+  CONSTRAINT `tickerFK`
+    FOREIGN KEY (`ticker`)
+    REFERENCES `StockMasterDb`.`Ticker` (`idTicker`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `StockMasteTestDb`.`Ticker`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `StockMasteTestDb`.`Ticker` ;
+
+CREATE TABLE IF NOT EXISTS `StockMasteTestDb`.`Ticker` (
+  `idTicker` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `symbol` VARCHAR(45) NULL,
+  `exchange` VARCHAR(45) NULL,
+  PRIMARY KEY (`idTicker`),
+  UNIQUE INDEX `idTicker_UNIQUE` (`idTicker` ASC))
 ENGINE = InnoDB;
 
 

@@ -142,7 +142,7 @@ public class TickerDao extends AbstractDao implements Entity {
                 while (rs.next()) {
                 	Ticker ticker = new Ticker();
                 	
-                	ticker.setId(rs.getInt("idTickery"));
+                	ticker.setId(rs.getInt("idTicker"));
                     ticker.setName(rs.getString("name"));
                     ticker.setSymbol(rs.getString("symbol"));
                     ticker.setExchange(rs.getString("exchange"));

@@ -23,6 +23,7 @@ public class Ticker {
 	}
 	
 	public Ticker(String name) {
+		this();
 		this.name = name;
 	}
 
