@@ -1,10 +1,9 @@
 package algorithms.average;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
-import model.Price;
+import model.Entry;
 
 public class ExponentialAverage extends AverageAbstract {
 	private int period;
@@ -12,7 +11,7 @@ public class ExponentialAverage extends AverageAbstract {
 	private double prevLossAvg;
 	private double alpha;
 	
-	public ExponentialAverage(List<Price> prices, int period, double smooth) {
+	public ExponentialAverage(List<Entry> prices, int period, double smooth) {
 		super(prices);
 		this.period = period;
 		
@@ -25,7 +24,7 @@ public class ExponentialAverage extends AverageAbstract {
         double avg = 0.0;
         for (int i = 1; i <= period; i++)
         {
-            avg += prices.get(i).getGain();
+            avg += entries.get(i).getGain();
         }
 
         return avg/period;
@@ -35,7 +34,7 @@ public class ExponentialAverage extends AverageAbstract {
         double avg = 0.0;
         for (int i = 1; i <= period; i++)
         {
-        	double val = prices.get(i).getLoss();
+        	double val = entries.get(i).getLoss();
             avg += val;
         }
 
@@ -52,7 +51,7 @@ public class ExponentialAverage extends AverageAbstract {
     	if(dayIdx == period) 
     		return prevGainAvg;
     	
-    	double currGainAvg = (prices.get(dayIdx).getGain() * alpha) + (prevGainAvg*(1-alpha));
+    	double currGainAvg = (entries.get(dayIdx).getGain() * alpha) + (prevGainAvg*(1-alpha));
     	prevGainAvg = currGainAvg;
 		return currGainAvg;
 	}
@@ -67,7 +66,7 @@ public class ExponentialAverage extends AverageAbstract {
     	if(dayIdx == period) 
     		return prevLossAvg;
 
-		double currLossAvg = (prices.get(dayIdx).getGain() * alpha)+ (prevLossAvg*(1-alpha));
+		double currLossAvg = (entries.get(dayIdx).getGain() * alpha)+ (prevLossAvg*(1-alpha));
     	prevLossAvg = currLossAvg;
 		return currLossAvg;
 	}

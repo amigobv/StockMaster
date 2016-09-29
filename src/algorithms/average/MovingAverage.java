@@ -1,17 +1,16 @@
 package algorithms.average;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
-import model.Price;
+import model.Entry;
 
 public class MovingAverage extends AverageAbstract {
 	private int period;
 	private double prevGainAvg;
 	private double prevLossAvg;
 	
-	public MovingAverage(List<Price> prices, int period) {
+	public MovingAverage(List<Entry> prices, int period) {
 		super(prices);
 		this.period = period;
 		
@@ -23,7 +22,7 @@ public class MovingAverage extends AverageAbstract {
         double avg = 0.0;
         for (int i = 1; i <= period; i++)
         {
-            avg += prices.get(i).getGain();
+            avg += entries.get(i).getGain();
         }
 
         return avg/period;
@@ -33,7 +32,7 @@ public class MovingAverage extends AverageAbstract {
         double avg = 0.0;
         for (int i = 1; i <= period; i++)
         {
-        	double val = prices.get(i).getLoss();
+        	double val = entries.get(i).getLoss();
             avg += val;
         }
 
@@ -51,7 +50,7 @@ public class MovingAverage extends AverageAbstract {
     		return prevGainAvg;
 
     	
-    	double currGainAvg = ((prevGainAvg * (period - 1)) + prices.get(dayIdx).getGain()) / period;
+    	double currGainAvg = ((prevGainAvg * (period - 1)) + entries.get(dayIdx).getGain()) / period;
     	prevGainAvg = currGainAvg;
 		return currGainAvg;
 	}
@@ -66,7 +65,7 @@ public class MovingAverage extends AverageAbstract {
 		if(dayIdx == period)
     		return prevLossAvg;
 
-		double currLossAvg = ((prevLossAvg * (period - 1)) + prices.get(dayIdx).getLoss()) / period;
+		double currLossAvg = ((prevLossAvg * (period - 1)) + entries.get(dayIdx).getLoss()) / period;
     	prevLossAvg = currLossAvg;
 		return currLossAvg;
 	}

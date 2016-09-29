@@ -1,10 +1,9 @@
 package algorithms.rsi;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import algorithms.average.Average;
-import model.Price;
+import model.Entry;
 
 public class Rsi extends RelativeStrengthIndexAbstract {
 	private Average avg;
@@ -16,14 +15,18 @@ public class Rsi extends RelativeStrengthIndexAbstract {
 	
 	@Override
 	public double calculate(LocalDate date) {
-		Price price = avg.getPriceByDay(date);
+		Entry entry = avg.getEntryByDay(date);
 		
 		double gainAvg = avg.calculateGainAverage(date);
 		double lossAvg = avg.calculateLossAverage(date);
 		double rs = calculateRelativStrength(gainAvg, lossAvg);
 		double rsi = calculateRelativeStrengthIndex(rs);
 		
-		price.Fill(gainAvg, lossAvg, rs, rsi);
+		entry.setGainAverage(gainAvg);
+		entry.setLossAverage(lossAvg);
+		entry.setRs(gainAvg);
+		entry.setRsi(rsi);
+		
 		return rsi;
 	}
 	
