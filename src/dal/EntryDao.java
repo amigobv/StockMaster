@@ -16,7 +16,6 @@ public class EntryDao extends AbstractDao implements Entity {
 
 	public EntryDao(String conString, String user, String password) {
 		super(conString, user, password);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

@@ -9,25 +9,32 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dal.EntryDao;
+import dal.TickerDao;
 import helpers.DateUtils;
 import model.Entry;
+import model.Ticker;
 
 public class EntryTest {
 	private static final String CONNECTION_STRING = "jdbc:mysql://localhost:3306/StockMasteTestDb";
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "root";
 	private EntryDao dao;
+	private TickerDao daoTicker;
+	Ticker testTicker;
 	
 	
 	@Before
 	public void setUp() {
 		System.out.println("Setup test infrastructure");
 		dao = new EntryDao(CONNECTION_STRING, USERNAME, PASSWORD);
+		daoTicker = new TickerDao(CONNECTION_STRING, USERNAME, PASSWORD);
+		testTicker = new Ticker("Test ticker");
+		daoTicker.store(testTicker);
 		
-		dao.store(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 27)), 11.2));
-		dao.store(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 28)), 14.5));
-		dao.store(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 29)), 13.6));
-		dao.store(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 30)), 19.8));
+		dao.store(new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 27)), 11.2));
+		dao.store(new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 28)), 14.5));
+		dao.store(new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 29)), 13.6));
+		dao.store(new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 30)), 19.8));
 		Assert.assertEquals(4, dao.getCount()); 
 	}
 	
@@ -78,6 +85,7 @@ public class EntryTest {
 	
 	@Test
 	public void getByTickerId() {
-		
+		Collection<Entry> entries = dao.getByTickerId(testTicker.getId());
+		Assert.assertEquals(4, entries); 
 	}
 }
