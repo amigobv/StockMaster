@@ -11,6 +11,7 @@ import algorithms.average.ExponentialAverage;
 import algorithms.average.MovingAverage;
 import helpers.DateUtils;
 import model.Entry;
+import model.Ticker;
 
 public class AverageTests {
 	private List<Entry> entries;
@@ -57,30 +58,31 @@ public class AverageTests {
 	}
 
 	private void Fill() {
+		Ticker ticker = new Ticker("STL");
 		entries = new ArrayList<Entry>();
 
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 8, 30)), 134.0));
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 8, 31)), 131.8));
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 1)), 129.0));
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 2)), 132.0));
-                              
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 5)), 135.0));
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 6)), 133.0));
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 7)), 134.4));
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 8)), 134.1));
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 9)), 130.6));
-                              
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 12)), 128.7));
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 13)), 126.1));
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 14)), 125.6));
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 15)), 124.1));
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 16)), 125.1));
-                              
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 19)), 126.7));
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 20)), 125.4));
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 21)), 126.1));
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 22)), 128.5));
-		entries.add(new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 23)), 128.2));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 8, 30)), 134.0));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 8, 31)), 131.8));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 1)), 129.0));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 2)), 132.0));
+                                      
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 5)), 135.0));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 6)), 133.0));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 7)), 134.4));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 8)), 134.1));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 9)), 130.6));
+                                      
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 12)), 128.7));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 13)), 126.1));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 14)), 125.6));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 15)), 124.1));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 16)), 125.1));
+                                      
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 19)), 126.7));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 20)), 125.4));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 21)), 126.1));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 22)), 128.5));
+		entries.add(new Entry(ticker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 23)), 128.2));
 	}
 
 }

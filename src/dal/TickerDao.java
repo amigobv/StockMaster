@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import model.Model;
 import model.Ticker;
 
 public class TickerDao extends AbstractDao implements Entity {
@@ -23,7 +24,7 @@ public class TickerDao extends AbstractDao implements Entity {
 	}
 
 	@Override
-	public Object getById(int id) throws DataAccessException {
+	public Model getById(int id) throws DataAccessException {
 		Collection<Ticker> tickers = getTickersFromWhere("WHERE idTicker = ?", id);
 		Iterator<Ticker> it = tickers.iterator();
 		
@@ -42,7 +43,7 @@ public class TickerDao extends AbstractDao implements Entity {
 	}
 
 	@Override
-	public void store(Object o) throws DataAccessException {
+	public void store(Model o) throws DataAccessException {
 		Ticker ticker = (Ticker)o;
 		
 		 if (ticker == null)
@@ -84,7 +85,7 @@ public class TickerDao extends AbstractDao implements Entity {
 	}
 
 	@Override
-	public void update(Object o) throws DataAccessException {
+	public void update(Model o) throws DataAccessException {
 		Ticker ticker = (Ticker)o;
 		
         if (ticker == null)

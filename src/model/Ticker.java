@@ -1,25 +1,19 @@
 package model;
 
-import java.util.ArrayList;
-
-
-public class Ticker {
-	private int id;
+public class Ticker extends Model{
 	private String name;
 	private String symbol;
 	private String exchange;
-	private ArrayList<Entry> entries;
 	
 	public Ticker() {
-		id = -1;
+		super(-1);
 	}
-	
-	public int getId() {
-		return id;
+	public Ticker(int id) {
+		super(id);
 	}
-
-	public void setId(int id) {
-		this.id = id;
+	public Ticker(int id, String name) {
+		this(id);
+		this.name = name;
 	}
 	
 	public Ticker(String name) {
@@ -33,18 +27,6 @@ public class Ticker {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public ArrayList<Entry> getEntries() {
-		return entries;
-	}
-
-	public void setEntries(ArrayList<Entry> entries) {
-		this.entries = entries;
-	}
-	
-	public void addEntry(Entry entry) {
-		this.entries.add(entry);
 	}
 
 	public String getSymbol() {

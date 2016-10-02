@@ -2,6 +2,7 @@ package test;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -15,7 +16,8 @@ import model.Entry;
 import model.Ticker;
 
 public class EntryTest {
-	private static final String CONNECTION_STRING = "jdbc:mysql://localhost:3306/StockMasteTestDb";
+	//private static final String CONNECTION_STRING = "jdbc:mysql://localhost:3306/StockMasteTestDb";
+	private static final String CONNECTION_STRING = "jdbc:derby:D:\\Private\\Dropbox\\Freelancing\\StockRSI\\StockTestDb;create=true";
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "root";
 	private EntryDao dao;
@@ -41,11 +43,14 @@ public class EntryTest {
 	@After
 	public void tearDown() {
 		System.out.println("tear down test infrastructure");
-		Collection<Entry> entries = dao.getAll();
-		for (Entry entry : entries) {
-			dao.delete(entry.getId());
+		
+		Collection<Ticker> tickers = daoTicker.getAll();
+		for (Ticker ticker : tickers) {
+			daoTicker.delete(ticker.getId());
 		}
+
 		Assert.assertEquals(0, dao.getCount()); 
+		Assert.assertEquals(0, daoTicker.getCount()); 
 	}
 	
 	@Test
@@ -55,14 +60,14 @@ public class EntryTest {
 	
 	@Test
 	public void insertTest() {
-		Entry entry = new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 30)), 20.8);
+		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 30)), 20.8);
 		dao.store(entry);
 		Assert.assertEquals(5, dao.getCount()); 	
 	}
 	
 	@Test
 	public void getByIdTest() {
-		Entry entry = new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 25)), 138);
+		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 25)), 138);
 		dao.store(entry);
 		Entry dbEntry = (Entry)dao.getById(entry.getId());
 		Assert.assertEquals(entry.getId(), dbEntry.getId()); 	
@@ -70,7 +75,7 @@ public class EntryTest {
 	
 	@Test
 	public void getUpdateTest() {
-		Entry entry = new Entry(DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 23)), 20.8);
+		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 23)), 20.8);
 		dao.store(entry);
 		entry.setOpen(14.5);
 		dao.update(entry);
@@ -84,8 +89,23 @@ public class EntryTest {
 	}
 	
 	@Test
-	public void getByTickerId() {
-		Collection<Entry> entries = dao.getByTickerId(testTicker.getId());
-		Assert.assertEquals(4, entries); 
+	public void getAllByTickerId() {
+		Collection<Entry> entries = dao.getAllByTickerId(testTicker.getId());
+		Assert.assertEquals(4, entries.size()); 
+	}
+	
+	@Test
+	public void getAllTest() {
+		Collection<Entry> entries = dao.getAll();
+		Assert.assertEquals(4, entries.size());
+	}
+	
+	@Test
+	public void getBetweenTest() {
+		Date start = DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 27));
+		Date end = DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 29));
+		
+		Collection<Entry> entries = dao.getByTickerBetween(testTicker.getId(), start, end);
+		Assert.assertEquals(3, entries.size());
 	}
 }

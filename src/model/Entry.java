@@ -2,8 +2,7 @@ package model;
 
 import java.util.Date;
 
-public class Entry {
-	private int id;
+public class Entry extends Model{
 	private Date date;
 	private double open;
 	private double high;
@@ -20,12 +19,11 @@ public class Entry {
 	private Ticker ticker;
 	
 	public Entry() {
-		id = -1;
+		super(-1);
 	}
 	
 	public Entry(int id, Ticker ticker, Date date, double open, double high, double low, double close, double volume, double value) {
-		
-		this.id = id;
+		super(id);
 		this.date = date;
 		this.open = open;
 		this.high = high;
@@ -33,33 +31,22 @@ public class Entry {
 		this.close = close;
 		this.volume = volume;
 		this.value = value;
-		this.setTicker(ticker);
+		this.ticker = ticker;
 	}
 	
-	public Entry (Date date, double open, double close) {
+	public Entry (Ticker ticker, Date date, double open, double close) {
 		this();
+		this.ticker = ticker;
 		this.date = date;
 		this.open = open;
 		this.close = close;
 	}
 	
 	public Entry (Ticker ticker, Date date, double close) {
-		this(date, close);
-		this.setTicker(ticker);
-	}
-	
-	public Entry (Date date, double close) {
 		this();
+		this.ticker = ticker;
 		this.date = date;
 		this.close = close;
-	}
-	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public Date getDate() {

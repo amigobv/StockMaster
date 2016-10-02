@@ -11,7 +11,9 @@ import dal.TickerDao;
 import model.Ticker;
 
 public class TickerTest {
-	private static final String CONNECTION_STRING = "jdbc:mysql://localhost:3306/StockMasteTestDb";
+	//private static final String CONNECTION_STRING = "jdbc:mysql://localhost:3306/StockMasteTestDb";
+	private static final String CONNECTION_STRING = "jdbc:derby:D:\\Private\\Dropbox\\Freelancing\\StockRSI\\StockTestDb;create=true";
+	
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "root";
 	private TickerDao dao;
