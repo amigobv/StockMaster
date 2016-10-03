@@ -1,8 +1,8 @@
 package model;
 
 public enum Recommandation {
-	UNDEFINED ("UNDEFINED"),
-	SELL ("SELL"),
+	STAY ("STAY"),
+	SELL ("SELL"),	
 	BUY ("BUY");
 	
 	private final String name;       

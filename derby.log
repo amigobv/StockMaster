@@ -1,6 +1,19 @@
 ----------------------------------------------------------------
-Mon Oct 03 15:52:05 CEST 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0157-8ad0-d7bf-000000aaacc0 
+Mon Oct 03 23:28:04 CEST 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0157-8c72-4e21-000000a7de60 
+on database directory D:\Private\Dropbox\Freelancing\StockRSI\StockTestDb with class loader sun.misc.Launcher$AppClassLoader@647e05 
+Loaded from file:/D:/Private/Dropbox/Freelancing/StockRSI/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_102-b14
+user.dir=D:\Private\Dropbox\Freelancing\StockRSI
+os.name=Windows 10
+os.arch=x86
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Mon Oct 03 23:28:06 CEST 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance ed8940a7-0157-8c72-4e21-000000a7de60 
 on database directory D:\Private\Dropbox\Freelancing\StockRSI\StockMasterDb with class loader sun.misc.Launcher$AppClassLoader@647e05 
 Loaded from file:/D:/Private/Dropbox/Freelancing/StockRSI/derby.jar
 java.vendor=Oracle Corporation

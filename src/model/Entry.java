@@ -67,7 +67,7 @@ public class Entry extends Model{
 		this.date = date;
 		this.dateOfChange = date;
 		this.previousRatingDate = date;
-		this.recommandation = Recommandation.UNDEFINED;
+		this.recommandation = Recommandation.STAY;
 		this.close = close;
 	}
 

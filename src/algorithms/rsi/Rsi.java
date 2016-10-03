@@ -13,7 +13,9 @@ import model.Entry;
  * 
  * In order the have a flexible RSI algorithm the average calculation algorithm
  * is provided at the instantiation. This way the user can decide at runtime which
- * average algorithm will be used for the RSI calculation 
+ * average algorithm will be used for the RSI calculation.
+ * 
+ * ATTENTION: The RSI Algorithm needs at least 100 Entries in order to calculate correctly
  *
  */
 public class Rsi extends RelativeStrengthIndexAlgo {

@@ -1,8 +1,11 @@
 package test;
 
+import static org.junit.Assert.fail;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -10,6 +13,7 @@ import org.junit.Test;
 import algorithms.average.Average;
 import algorithms.average.ExponentialMovingAverage;
 import algorithms.rsi.Rsi;
+import core.DataManager;
 import helpers.DateUtils;
 import model.Entry;
 import model.Ticker;
@@ -46,8 +50,17 @@ public class RsiTest {
         	
         }
 	}
-
 	
+	@Test 
+	public void calculateStockMasterRsiTest() {
+		final int PERIOD = 14;
+		
+		Date date = DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 28));
+		DataManager manager = new DataManager();
+		double rsi = manager.calculateRSI(new Ticker("STL"), PERIOD, date);
+		System.out.println("RSI (" + date + ") : " + rsi); 
+	}
+
 	private void FillClientValues() {
 		entries = new ArrayList<Entry>();
 		Ticker ticker = new Ticker("STL");

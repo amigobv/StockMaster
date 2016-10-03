@@ -14,22 +14,18 @@ import model.Entry;
  */
 public class ExponentialMovingAverage extends AverageAbstract {
 	private int period;
-	private double prevGainAvg;
-	private double prevLossAvg;
 	
 	/**
 	 * The constructor expects a list of entries which will be use for the calculation
-	 * and the desired period 
+	 * and the desired period.
 	 * 
 	 * @param entries
 	 * @param period
 	 */
 	public ExponentialMovingAverage(List<Entry> entries, int period) {
 		super(entries);
+			
 		this.period = period;
-		
-		prevGainAvg = calculateFirstGainAverage();
-		prevLossAvg = calculateFirstLossAverage();
 	}
 
 	/**
@@ -76,13 +72,18 @@ public class ExponentialMovingAverage extends AverageAbstract {
     	if (dayIdx < period)
     		return 0;
     	
-    	if(dayIdx == period) 
-    		return prevGainAvg;
-
+    	double prevAvg = calculateFirstGainAverage();
     	
-    	double currGainAvg = ((prevGainAvg * (period - 1)) + entries.get(dayIdx).getGain()) / period;
-    	prevGainAvg = currGainAvg;
-		return currGainAvg;
+    	if(dayIdx == period) 
+    		return prevAvg;
+
+    	for (int i = period + 1; i <= dayIdx; i++) {
+    		double currGainAvg = ((prevAvg * (period - 1)) + entries.get(i).getGain()) / period;
+    		prevAvg = currGainAvg;
+    		entries.get(i).setGainAverage(currGainAvg);
+    	}
+    	
+		return entries.get(dayIdx).getGainAverage();
 	}
 	
 	/**
@@ -98,10 +99,15 @@ public class ExponentialMovingAverage extends AverageAbstract {
     		return 0;
 		
 		if(dayIdx == period)
-    		return prevLossAvg;
+    		return calculateFirstLossAverage();
 
-		double currLossAvg = ((prevLossAvg * (period - 1)) + entries.get(dayIdx).getLoss()) / period;
-    	prevLossAvg = currLossAvg;
-		return currLossAvg;
+    	double prevAvg = calculateFirstLossAverage();
+    	for (int i = period + 1; i <= dayIdx; i++) {
+    		double currLossAvg = ((prevAvg * (period - 1)) + entries.get(i).getLoss()) / period;
+    		prevAvg = currLossAvg;
+    		entries.get(i).setLossAverage(currLossAvg);
+    	}
+    	
+		return entries.get(dayIdx).getLossAverage();
 	}
 }
