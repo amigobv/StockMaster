@@ -1,5 +1,12 @@
 package model;
 
+/**
+ * 
+ * @author Daniel Rotaru
+ * 
+ * Domain class for the ticker table
+ *
+ */
 public class Ticker extends Model{
 	private String name;
 	private String symbol;

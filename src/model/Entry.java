@@ -2,6 +2,13 @@ package model;
 
 import java.util.Date;
 
+/**
+ * 
+ * @author Daniel Rotaru
+ * 
+ * Domain class for the entry table
+ *
+ */
 public class Entry extends Model{
 	private Date date;
 	private Ticker ticker;

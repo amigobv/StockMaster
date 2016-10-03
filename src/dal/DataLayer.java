@@ -7,6 +7,13 @@ import model.Entry;
 import model.Model;
 import model.Ticker;
 
+/**
+ * 
+ * @author Daniel Rotaru
+ * 
+ * Interface for the Data Access Layer
+ *
+ */
 public interface DataLayer {
 	void store(Model model, Class<?> c);
 	void update(Model model, Class<?> c);

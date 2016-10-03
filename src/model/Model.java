@@ -1,5 +1,12 @@
 package model;
 
+/**
+ * 
+ * @author Daniel Rotaru
+ * 
+ * Base class for every domain object class
+ *
+ */
 public abstract class Model {
 	private int id;
 	

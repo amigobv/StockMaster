@@ -5,15 +5,28 @@ import java.util.List;
 
 import model.Entry;
 
+/**
+ * 
+ * @author Daniel Rotaru
+ *
+ */
 public abstract class AverageAbstract implements Average {
 	protected List<Entry> entries;
 	
+	/**
+	 * 
+	 * @param entries
+	 */
 	public AverageAbstract(List<Entry> entries) {
 		this.entries = entries;
 		
 		calculatePriceChanges();
 	}
 	
+	/**
+	 * Iterates through all entries and calculates the price changes.
+	 * The price changes are saved in each entry object.
+	 */
 	private void calculatePriceChanges() {
 		for (int i = 1; i < entries.size(); i++) {
 			double change = entries.get(i).getClose() - entries.get(i-1).getClose();
@@ -23,6 +36,12 @@ public abstract class AverageAbstract implements Average {
 		}
 	}
 	
+	/**
+	 * Iterates through all entries and returns the entry
+	 * with the provided date 
+	 * 
+	 * @param date
+	 */
 	public Entry getEntryByDay(Date date) {
 		for(Entry price : entries) {
 			if (price.getDate().equals(date))
@@ -32,6 +51,13 @@ public abstract class AverageAbstract implements Average {
 		return null;
 	}
 	
+	/**
+	 * Iterates through all entries and returns the position in list of the entry
+	 * with the provided date 
+	 * 
+	 * @param date
+	 * @return
+	 */
 	protected int getIndexByDate(Date date) {
 		Entry price = getEntryByDay(date);
 		return entries.indexOf(price);

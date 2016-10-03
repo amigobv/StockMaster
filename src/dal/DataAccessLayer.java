@@ -7,6 +7,15 @@ import model.Entry;
 import model.Model;
 import model.Ticker;
 
+/**
+ * 
+ * @author Daniel Rotaru
+ * 
+ * Implementation of the Data Access Layer DAL
+ * 
+ * This class should be used from outside for the database access
+ *
+ */
 public class DataAccessLayer implements DataLayer {
     private final String CONNECTION_STRING = "jdbc:derby:D:\\Private\\Dropbox\\Freelancing\\StockRSI\\StockMasterDb;create=true";
     private final String USERNAME = "root";

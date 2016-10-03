@@ -6,6 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * 
+ * @author Daniel Rotaru
+ * 
+ * This class handles the database connection
+ *
+ */
 public abstract class AbstractDao implements AutoCloseable {
     private Connection con;
     protected String conString;

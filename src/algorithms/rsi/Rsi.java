@@ -5,9 +5,26 @@ import java.util.Date;
 import algorithms.average.Average;
 import model.Entry;
 
-public class Rsi extends RelativeStrengthIndexAbstract {
+/**
+ * 
+ * @author Daniel Rotaru
+ * 
+ * Calculates the Relative Strength Index (RSI)
+ * 
+ * In order the have a flexible RSI algorithm the average calculation algorithm
+ * is provided at the instantiation. This way the user can decide at runtime which
+ * average algorithm will be used for the RSI calculation 
+ *
+ */
+public class Rsi extends RelativeStrengthIndexAlgo {
 	private Average avg;
 
+	/**
+	 * The constructor expects the average algorithm which should be used
+	 * for the RSI calculation (Inverse of Control)
+	 * 
+	 * @param algo
+	 */
 	public Rsi(Average algo) {
 		super();
 		this.avg = algo;

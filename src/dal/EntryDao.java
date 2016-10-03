@@ -16,6 +16,16 @@ import model.Model;
 import model.Recommandation;
 import model.Ticker;
 
+/**
+ * 
+ * @author Daniel Rotaru
+ * 
+ * Class to access the Entry table. 
+ * 
+ * THIS CLASS IS ONLY USED BY THE DATA ACCESS LAYER. 
+ * DO NOT USE THIS CLASS TO DIRECTLY ACCESS THE ENTRY TABLE!!! 
+ *
+ */
 public class EntryDao extends AbstractDao implements Entity {
 
 	public EntryDao(String conString, String user, String password) {

@@ -11,6 +11,16 @@ import java.util.Iterator;
 import model.Model;
 import model.Ticker;
 
+/**
+ * 
+ * @author Daniel Rotaru
+ * 
+ * Class to access the Ticker table
+ * 
+ * THIS CLASS IS ONLY USED BY THE DATA ACCESS LAYER. 
+ * DO NOT USE THIS CLASS TO DIRECTLY ACCESS THE TICKER TABLE!!! 
+ *
+ */
 public class TickerDao extends AbstractDao implements Entity {
 
 	public TickerDao(String conString, String user, String password) {
