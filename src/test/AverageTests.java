@@ -7,8 +7,7 @@ import java.util.List;
 import org.junit.Test;
 
 import algorithms.average.Average;
-import algorithms.average.ExponentialAverage;
-import algorithms.average.MovingAverage;
+import algorithms.average.ExponentialMovingAverage;
 import helpers.DateUtils;
 import model.Entry;
 import model.Ticker;
@@ -24,7 +23,7 @@ public class AverageTests {
 		System.out.println("Moving Average");
 		System.out.println("No\tDate\t\tClose\tUp\tDown\tGainAvg\tLossAvg");
 		int count = 1;
-		Average algo = new MovingAverage(entries, PERIOD);
+		Average algo = new ExponentialMovingAverage(entries, PERIOD);
 
 		for (Entry entry : entries) {
 			entry.setGainAverage(algo.calculateGainAverage(entry.getDate()));
@@ -33,27 +32,6 @@ public class AverageTests {
 			System.out.println(String.format("%d\t%s\t%4.2f\t%4.2f\t%4.2f\t%4.2f\t%4.2f", count++,
 					entry.getDate().toString(), entry.getClose(), entry.getGain(), entry.getLoss(),
 					entry.getGainAverage(), entry.getLossAverage()));
-		}
-	}
-
-	public void exponentialAverageTest() {
-		final int PERIOD = 14;
-		double smooth = 2 / (PERIOD + 1);
-		Fill();
-
-		System.out.println("Exponential Average");
-		System.out.println("No\tDate\t\tClose\tUp\tDown\tGainAvg\tLossAvg");
-		int count = 1;
-		Average algo = new ExponentialAverage(entries, PERIOD, smooth);
-
-		for (Entry entry : entries) {
-			entry.setGainAverage(algo.calculateGainAverage(entry.getDate()));
-			entry.setLossAverage(algo.calculateLossAverage(entry.getDate()));
-
-			System.out.println(String.format("%d\t%s\t%4.2f\t%4.2f\t%4.2f\t%4.2f\t%4.2f", count++,
-					entry.getDate().toString(), entry.getClose(), entry.getGain(), entry.getLoss(),
-					entry.getGainAverage(), entry.getLossAverage()));
-
 		}
 	}
 

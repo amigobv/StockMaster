@@ -52,13 +52,13 @@ public class dalTest {
 	
 	@Test
 	public void storeTest() {
-		dal.store(new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 3)), 20,1), Entry.class);
+		dal.store(new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 3)), 20.1), Entry.class);
 		Assert.assertEquals(5,  dal.getCount(Entry.class));
 	}
 	
 	@Test
 	public void updateTest() {
-		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 3)), 20,1);
+		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 3)), 20.1);
 		dal.store(entry, Entry.class);
 		entry.setClose(21.2);
 		Assert.assertEquals(5,  dal.getCount(Entry.class));
@@ -70,7 +70,7 @@ public class dalTest {
 	
 	@Test
 	public void deleteTest() {
-		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 3)), 20,1);
+		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 3)), 20.1);
 		dal.store(entry, Entry.class);
 		Assert.assertEquals(5,  dal.getCount(Entry.class));
 		
@@ -80,7 +80,7 @@ public class dalTest {
 
 	@Test
 	public void getEntryByIdTest() {
-		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 3)), 20,1);
+		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 3)), 20.1);
 		dal.store(entry, Entry.class);
 		Assert.assertEquals(5,  dal.getCount(Entry.class));
 		
@@ -90,7 +90,7 @@ public class dalTest {
 	
 	@Test
 	public void getAllEntriesTest() {
-		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 3)), 20,1);
+		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 3)), 20.1);
 		dal.store(entry, Entry.class);
 		Assert.assertEquals(5,  dal.getCount(Entry.class));
 		
@@ -100,7 +100,7 @@ public class dalTest {
 	
 	@Test
 	public void getAllEntriesBetweenTest() {
-		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 3)), 20,1);
+		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 3)), 20.1);
 		dal.store(entry, Entry.class);
 		Assert.assertEquals(5,  dal.getCount(Entry.class));
 		
@@ -112,8 +112,8 @@ public class dalTest {
 	
 	@Test
 	public void getLastEntriesTest() {
-		Entry entryOld = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 26)), 20,1);
-		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 3)), 20,1);
+		Entry entryOld = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 26)), 20.1);
+		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 3)), 20.1);
 		dal.store(entryOld, Entry.class);
 		dal.store(entry, Entry.class);
 		Collection<Entry> entries = dal.getLastEntries(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 10, 3)), 3);

@@ -8,8 +8,7 @@ import java.util.List;
 import org.junit.Test;
 
 import algorithms.average.Average;
-import algorithms.average.ExponentialAverage;
-import algorithms.average.MovingAverage;
+import algorithms.average.ExponentialMovingAverage;
 import algorithms.rsi.Rsi;
 import helpers.DateUtils;
 import model.Entry;
@@ -26,7 +25,7 @@ public class RsiTest {
 		System.out.println("RSI with moving average");
 		System.out.println("No\tDate\t\tClose\tUp\tDown\tGainAvg\tLossAvg\tRS\tRSI");
 		int count = 1;
-		Average algo = new MovingAverage(entries, PERIOD);
+		Average algo = new ExponentialMovingAverage(entries, PERIOD);
 		Rsi rsi = new Rsi(algo);
 		
         for (Entry entry : entries)
@@ -45,38 +44,6 @@ public class RsiTest {
         																			entry.getRsi()));
         	
         	
-        }
-	}
-	
-	@Test
-	public void exponentialAverageRsiTest() {
-		final int PERIOD = 14;
-		int count = 1;
-		double smooth = 2.0 /(PERIOD + 1);
-		
-		FillClientValues();
-		
-		System.out.println("RSI with exponential average");
-		System.out.println("No\tDate\t\tClose\tUp\tDown\tGainAvg\tLossAvg\tRS\tRSI");
-
-		
-		Average algo = new ExponentialAverage(entries, PERIOD, smooth);
-		Rsi rsi = new Rsi(algo);
-		
-        for (Entry price : entries)
-        {
-        	rsi.calculate(price.getDate());
-        
-        	System.out.println(String.format("%d\t%s\t%4.2f\t%4.2f\t%4.2f\t%4.4f\t%4.4f\t%4.4f\t%4.4f", 
-        																			count++, 
-        																			price.getDate().toString(), 
-        																			price.getClose(),
-        																			price.getGain(),
-        																			price.getLoss(),
-        																			price.getGainAverage(),
-        																			price.getLossAverage(),
-        																			price.getRs(),
-        																			price.getRsi()));
         }
 	}
 

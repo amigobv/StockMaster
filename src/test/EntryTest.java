@@ -77,10 +77,10 @@ public class EntryTest {
 	public void getUpdateTest() {
 		Entry entry = new Entry(testTicker, DateUtils.LocalDateToDate(LocalDate.of(2016, 9, 23)), 20.8);
 		dao.store(entry);
-		entry.setOpen(14.5);
+		entry.setRating(14);
 		dao.update(entry);
 		Entry dbEntry = (Entry)dao.getById(entry.getId());
-		Assert.assertEquals((int)entry.getOpen(), (int)dbEntry.getOpen()); 	
+		Assert.assertEquals(entry.getRating(), dbEntry.getRating()); 	
 	}
 
 	@Test

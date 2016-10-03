@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import model.Entry;
 import model.Model;
+import model.Recommandation;
 import model.Ticker;
 
 public class EntryDao extends AbstractDao implements Entity {
@@ -27,14 +29,14 @@ public class EntryDao extends AbstractDao implements Entity {
 
 	@Override
 	public Model getById(int id) throws DataAccessException {
-        Collection<Entry> entries = getEntriesFromWhere("WHERE idEntry = ?", id);
+        Collection<Entry> entries = getEntriesFromJoin("WHERE idEntry = ? and ticker = idTicker", id);
         Iterator<Entry> it = entries.iterator();
 
         return it.hasNext() ? it.next() : null;
 	}
 	
 	public Collection<Entry> getAllByTickerId(int tickerId) throws DataAccessException {
-		return getEntriesFromJoin(", Ticker where ticker = ? and ticker = idTicker", tickerId);
+		return getEntriesFromJoin("WHERE ticker = ? and ticker = idTicker", tickerId);
 	}
 
 	public Collection<Entry> getAll() throws DataAccessException {
@@ -42,7 +44,18 @@ public class EntryDao extends AbstractDao implements Entity {
 	}
 	
 	public Collection<Entry> getByTickerBetween(int id, Date start, Date end) throws DataAccessException {
-		return getEntriesFromWhere("WHERE ticker = ? and date between ? and ?", id, start, end);
+		if (start == null || end == null)
+			throw new IllegalArgumentException();
+
+		return getEntriesFromJoin("WHERE ticker = ? and ticker = idTicker and date between ? and ?", id, start, end);
+	}
+	
+	public Collection<Entry> getLastEntriesByTickerId(int id, Date start, int numOfEntries) {
+		if (start == null)
+			throw new IllegalArgumentException();
+		
+		List<Entry> entries = new ArrayList<Entry>(getEntriesFromJoin("WHERE ticker = ? and ticker = idTicker and date <= ? ORDER BY date DESC", id, start));
+		return entries.subList(0, Math.min(entries.size(), numOfEntries));
 	}
 
 
@@ -58,22 +71,28 @@ public class EntryDao extends AbstractDao implements Entity {
         
         try (PreparedStatement pstmt = this.getConnection().prepareStatement(
                 "insert into Entry " + 
-                "(date, openPrice, highPrice, lowPrice, closePrice, volume, value, rs, rsi, ticker) " + 
-                "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "(date, ticker, closingPrice, change, dateOfChange, priceAtChange, wma10, wma20, wma100, " +
+                "recommandation, percentage, rating, prevRating, prevRatingDate, rsi)" +		
+                "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 Statement.RETURN_GENERATED_KEYS
                 )) {
             
             // set parameters
             pstmt.setDate(1, new java.sql.Date(entry.getDate().getTime()));
-            pstmt.setDouble(2, entry.getOpen());
-            pstmt.setDouble(3, entry.getHigh());
-            pstmt.setDouble(4, entry.getLow());
-            pstmt.setDouble(5, entry.getClose());
-            pstmt.setDouble(6, entry.getVolume());
-            pstmt.setDouble(7, entry.getValue());
-            pstmt.setDouble(8, entry.getRs());
-            pstmt.setDouble(9, entry.getRsi());
-            pstmt.setInt(10, entry.getTicker() != null ? entry.getTicker().getId() : 0);
+            pstmt.setDouble(2, entry.getTicker() != null ? entry.getTicker().getId() : 0);
+            pstmt.setDouble(3, entry.getClose());
+            pstmt.setDouble(4, entry.getChange());
+            pstmt.setDate(5, new java.sql.Date(entry.getDateOfChange().getTime()));
+            pstmt.setDouble(6, entry.getPriceAtChange());
+            pstmt.setDouble(7, entry.getWma10());
+            pstmt.setDouble(8, entry.getWma20());
+            pstmt.setDouble(9, entry.getWma100());
+            pstmt.setString(10, entry.getRecommandation().toString());
+            pstmt.setDouble(11, entry.getPercentageSinceRecommandation());
+            pstmt.setInt(12, entry.getRating());
+            pstmt.setInt(13, entry.getPreviousRating());
+            pstmt.setDate(14, new java.sql.Date(entry.getPreviousRatingDate().getTime()));
+            pstmt.setDouble(15, entry.getRsi());
            
             // insert data set
             pstmt.executeUpdate();
@@ -105,21 +124,27 @@ public class EntryDao extends AbstractDao implements Entity {
         
         try (PreparedStatement pstmt = this.getConnection().prepareStatement(
                 "update Entry " +
-                "SET date = ?, openPrice = ?, highPrice = ?, lowPrice = ?, closePrice = ?, volume = ?, value = ?, rs = ?, rsi = ?, ticker = ? " +
+                "SET date = ?, ticker = ?, closingPrice = ?, change = ?, dateOfChange = ?, priceAtChange = ?, wma10 = ?, wma20 = ?, wma100 = ?, " +
+                "recommandation = ?, percentage = ?, rating = ?, prevRating = ?, prevRatingDate = ?, rsi = ?" +
                 "WHERE idEntry = ?")){
             
             // Set parameters
             pstmt.setDate(1, new java.sql.Date(entry.getDate().getTime()));
-            pstmt.setDouble(2, entry.getOpen());
-            pstmt.setDouble(3, entry.getHigh());
-            pstmt.setDouble(4, entry.getLow());
-            pstmt.setDouble(5, entry.getClose());
-            pstmt.setDouble(6, entry.getVolume());
-            pstmt.setDouble(7, entry.getValue());
-            pstmt.setDouble(8, entry.getRs());
-            pstmt.setDouble(9, entry.getRsi());
-            pstmt.setInt(10, entry.getTicker() != null ? entry.getTicker().getId() : 0);
-            pstmt.setInt(11, entry.getId());
+            pstmt.setInt(2, entry.getTicker() != null ? entry.getTicker().getId() : 0);
+            pstmt.setDouble(3, entry.getClose());
+            pstmt.setDouble(4, entry.getChange());
+            pstmt.setDate(5, new java.sql.Date(entry.getDateOfChange().getTime()));
+            pstmt.setDouble(6, entry.getPriceAtChange());
+            pstmt.setDouble(7, entry.getWma10());
+            pstmt.setDouble(8, entry.getWma20());
+            pstmt.setDouble(9, entry.getWma100());
+            pstmt.setString(10, entry.getRecommandation().toString());
+            pstmt.setDouble(11, entry.getPercentageSinceRecommandation());
+            pstmt.setInt(12, entry.getRating());
+            pstmt.setInt(13, entry.getPreviousRating());
+            pstmt.setDate(14, new java.sql.Date(entry.getPreviousRatingDate().getTime()));
+            pstmt.setDouble(15, entry.getRsi());
+            pstmt.setInt(16, entry.getId());
             
             // save to DB
             pstmt.executeUpdate();
@@ -150,16 +175,21 @@ public class EntryDao extends AbstractDao implements Entity {
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                 	Entry entry = new Entry();
-                	
+
                 	entry.setId(rs.getInt("idEntry"));
                     entry.setDate(rs.getDate("date"));
-                    entry.setOpen(rs.getDouble("openPrice"));
-                    entry.setHigh(rs.getDouble("highPrice"));
-                    entry.setLow(rs.getDouble("lowPrice"));
-                    entry.setClose(rs.getDouble("closePrice"));
-                    entry.setVolume(rs.getDouble("volume"));
-                    entry.setValue(rs.getDouble("value"));
-                    entry.setRs(rs.getDouble("rs"));
+                    entry.setClose(rs.getDouble("closingPrice"));
+                    entry.setChange(rs.getDouble("change"));
+                    entry.setDateOfChange(rs.getDate("dateOfChange"));
+                    entry.setChange(rs.getDouble("priceAtChange"));
+                    entry.setWma10(rs.getDouble("wma10"));
+                    entry.setWma20(rs.getDouble("wma20"));
+                    entry.setWma100(rs.getDouble("wma100"));
+                    entry.setRecommandation(Recommandation.fromString(rs.getString("recommandation")));
+                    entry.setPercentageSinceRecommandation(rs.getDouble("percentage"));
+                    entry.setRating(rs.getInt("rating"));
+                    entry.setPreviousRating(rs.getInt("prevRating"));
+                    entry.setPreviousRatingDate(rs.getDate("prevRatingDate"));
                     entry.setRsi(rs.getDouble("rsi"));
                     entries.add(entry);
                 }
@@ -184,7 +214,7 @@ public class EntryDao extends AbstractDao implements Entity {
     private Collection<Entry> getEntriesFromJoin(String query, Object... args) throws DataAccessException {
     	Collection<Entry> entries = new ArrayList<Entry>();
         
-        try (PreparedStatement pstmt = this.getConnection().prepareStatement("select * from Entry " + query)) {
+        try (PreparedStatement pstmt = this.getConnection().prepareStatement("select * from Entry, Ticker " + query)) {
             for (int i = 0; i < args.length; i++) {
                 pstmt.setObject(i + 1, args[i]);
             }
@@ -195,13 +225,18 @@ public class EntryDao extends AbstractDao implements Entity {
                 	
                 	entry.setId(rs.getInt("idEntry"));
                     entry.setDate(rs.getDate("date"));
-                    entry.setOpen(rs.getDouble("openPrice"));
-                    entry.setHigh(rs.getDouble("highPrice"));
-                    entry.setLow(rs.getDouble("lowPrice"));
-                    entry.setClose(rs.getDouble("closePrice"));
-                    entry.setVolume(rs.getDouble("volume"));
-                    entry.setValue(rs.getDouble("value"));
-                    entry.setRs(rs.getDouble("rs"));
+                    entry.setClose(rs.getDouble("closingPrice"));
+                    entry.setChange(rs.getDouble("change"));
+                    entry.setDateOfChange(rs.getDate("dateOfChange"));
+                    entry.setChange(rs.getDouble("priceAtChange"));
+                    entry.setWma10(rs.getDouble("wma10"));
+                    entry.setWma20(rs.getDouble("wma20"));
+                    entry.setWma100(rs.getDouble("wma100"));
+                    entry.setRecommandation(Recommandation.fromString(rs.getString("recommandation")));
+                    entry.setPercentageSinceRecommandation(rs.getDouble("percentage"));
+                    entry.setRating(rs.getInt("rating"));
+                    entry.setPreviousRating(rs.getInt("prevRating"));
+                    entry.setPreviousRatingDate(rs.getDate("prevRatingDate"));
                     entry.setRsi(rs.getDouble("rsi"));
                     
                     Ticker ticker = new Ticker(rs.getInt("idTicker"));

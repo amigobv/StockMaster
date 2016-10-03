@@ -17,7 +17,7 @@ public interface DataLayer {
 	Entry getEntryById(int id);
 	Collection<Entry> getAllEntries(Ticker ticker);
 	Collection<Entry> getAllEntriesBetween(Ticker ticker, Date start, Date end);
-	Collection<Entry> getLastEntries(Ticker ticker, Date start);
+	Collection<Entry> getLastEntries(Ticker ticker, Date start, int numOfRows);
 	
 	Ticker getTickerByName(String name);
 	Collection<Ticker> getAllTickers();

@@ -94,11 +94,11 @@ public class DataAccessLayer implements DataLayer {
 	}
 
 	@Override
-	public Collection<Entry> getLastEntries(Ticker ticker, Date start) {
+	public Collection<Entry> getLastEntries(Ticker ticker, Date start, int numOfRows) {
 		if (ticker == null || start == null)
 			throw new IllegalArgumentException();
 		
-		throw new UnsupportedOperationException();
+		return entryDao.getLastEntriesByTickerId(ticker.getId(), start, numOfRows);
 	}
 
 	@Override

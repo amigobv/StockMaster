@@ -169,3 +169,5 @@ StockTestDb/seg0/ce1.dat
 StockTestDb/seg0/cf0.dat
 StockTestDb/seg0/README_DO_NOT_TOUCH_FILES.txt
 StockTestDb/service.properties
+/StockTestDb/
+/StockMasterDb/

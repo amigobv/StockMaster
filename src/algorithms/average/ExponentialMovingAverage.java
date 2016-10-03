@@ -5,12 +5,12 @@ import java.util.List;
 
 import model.Entry;
 
-public class MovingAverage extends AverageAbstract {
+public class ExponentialMovingAverage extends AverageAbstract {
 	private int period;
 	private double prevGainAvg;
 	private double prevLossAvg;
 	
-	public MovingAverage(List<Entry> prices, int period) {
+	public ExponentialMovingAverage(List<Entry> prices, int period) {
 		super(prices);
 		this.period = period;
 		
